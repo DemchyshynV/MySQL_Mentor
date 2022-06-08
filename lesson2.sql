@@ -1,3 +1,6 @@
+distinct
+union
+
 select *
 from client c
          join department d on d.idDepartment = c.Department_idDepartment;
