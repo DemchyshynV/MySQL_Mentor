@@ -106,6 +106,8 @@ from users;
 select sum(age)
 from users;
 
+select count(*)as count, model from cars where year>2020 group by model having count>=2;
+
 delete
 from users
 where id = 2;
