@@ -51,6 +51,10 @@ where age between 20 and 30;
 
 select *
 from users
+where age not between 20 and 30; // not
+
+select *
+from users
 where age >= 20
   and age <= 30;
 
@@ -62,6 +66,10 @@ where age >= 20 and age <= 30
 select *
 from users
 where age in (20, 25, 30);
+
+select *
+from users
+where age not in (20, 25, 30);
 
 select *
 from users
