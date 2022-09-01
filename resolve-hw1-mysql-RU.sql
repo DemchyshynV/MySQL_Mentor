@@ -1,6 +1,6 @@
 # найти все машины старше 2000 г
 select * from cars where year > 2000;
-# найти все машины млатше 2015 г
+# найти все машины младше 2015 г
 select * from cars where year < 2015;
 # найти все машины 2008, 2009, 2010 годов
 select * from cars where year in(2008,2009,2010);
