@@ -44,18 +44,13 @@ from client
          join department d2 on d2.idDepartment = client.Department_idDepartment
 where DepartmentCity = 'lviv';
 # or
-select (
-           select count(*)
-           from client
-                    join department d on d.idDepartment = client.Department_idDepartment
-       ) as all_department_client_count,
-       (
-           select count(*)
-           from client
-                    join department d2 on d2.idDepartment = client.Department_idDepartment
-           where DepartmentCity = 'lviv'
-       ) as lviv_department_client_count
-from dual;
+select (select count(*)
+        from client
+                 join department d on d.idDepartment = client.Department_idDepartment) as all_count,
+       (select count(*)
+        from client
+                 join department d on d.idDepartment = client.Department_idDepartment
+        where DepartmentCity = 'lviv') as lviv_count;
 # 10.Знайти кредити, які мають найбільшу суму для кожного клієнта окремо.
 select max(Sum) as max_credit, client.*
 from client
@@ -117,13 +112,13 @@ from application
          join client c on c.idClient = application.Client_idClient
 where LastName regexp '^.[eyuoa].*';
 # 21.Знайти львівські відділення, які видали кредитів на загальну суму більше ніж 5000
-select sum(Sum) as sum, idDepartment, DepartmentCity
+select sum(Sum) as sum, DepartmentCity,idDepartment
 from department
          join client c on department.idDepartment = c.Department_idDepartment
          join application a on c.idClient = a.Client_idClient
 where DepartmentCity = 'lviv'
-  and sum > 5000
-group by idDepartment, DepartmentCity;
+group by idDepartment, DepartmentCity
+having sum(Sum) > 5000;
 # 22.Знайти клієнтів, які повністю погасили кредити на суму більше ніж 5000
 select idClient, FirstName, LastName, CreditState, Sum
 from client
