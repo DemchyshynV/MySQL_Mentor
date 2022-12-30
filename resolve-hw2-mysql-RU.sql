@@ -110,6 +110,18 @@ where CreditState = 'Returned';
 delete application
 from application
          join client c on c.idClient = application.Client_idClient
+where
+        LastName like '_e%' or
+        LastName like '_y%' or
+        LastName like '_u%' or
+        LastName like '_o%' or
+        LastName like '_a%';
+
+#or
+
+delete application
+from application
+         join client c on c.idClient = application.Client_idClient
 where LastName regexp '^.[eyuoa].*';
 # 21. Найти львовские отделения, которые выдали кредитов на общую сумму больше чем 5000
 select sum(Sum) as sum, DepartmentCity,idDepartment
