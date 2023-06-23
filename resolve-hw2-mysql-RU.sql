@@ -37,8 +37,8 @@ where Sum > 5000;
 # 9. Посчитать количество клиентов всех отделений и только львовских отделений.
 select count(*) as all_lviv
 from client
-         join department d on d.idDepartment = client.Department_idDepartment
-union
+         join department d on d.idDepartment = client.Department_idDepartment;
+
 select count(*)
 from client
          join department d2 on d2.idDepartment = client.Department_idDepartment
