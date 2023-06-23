@@ -55,12 +55,12 @@ select (select count(*)
 select max(Sum) as max_credit, client.*
 from client
          join application a on client.idClient = a.Client_idClient
-group by idClient, FirstName, LastName;
+group by idClient;
 # 11. Визначити кількість заявок на крдеит для кожного клієнта.
 select count(*), idClient, FirstName, LastName
 from client
          join application a on client.idClient = a.Client_idClient
-group by idClient, FirstName, LastName;
+group by idClient;
 # 12. Визначити найбільший та найменший кредити.
 select min(Sum) as min, max(Sum) as max
 from application;
@@ -69,7 +69,7 @@ select count(*), idClient, FirstName, LastName, Education
 from client
          join application a on client.idClient = a.Client_idClient
 where Education = 'high'
-group by idClient, FirstName, LastName, Education;
+group by idClient;
 # 14. Вивести дані про клієнта, в якого середня сума кредитів найвища.
 select avg(Sum) as avg, client.*
 from client
@@ -82,7 +82,7 @@ select sum(Sum) as sum, idDepartment, DepartmentCity
 from department
          join client c on department.idDepartment = c.Department_idDepartment
          join application a on c.idClient = a.Client_idClient
-group by DepartmentCity, idDepartment
+group by idDepartment
 order by sum desc
 limit 1;
 # 16. Вивести відділення, яке видало найбільший кредит.
@@ -111,11 +111,11 @@ delete application
 from application
          join client c on c.idClient = application.Client_idClient
 where
-    LastName like '_e%' or
-    LastName like '_y%' or
-    LastName like '_u%' or
-    LastName like '_o%' or
-    LastName like '_a%';
+        LastName like '_e%' or
+        LastName like '_y%' or
+        LastName like '_u%' or
+        LastName like '_o%' or
+        LastName like '_a%';
 
 #or
 
@@ -129,7 +129,7 @@ from department
          join client c on department.idDepartment = c.Department_idDepartment
          join application a on c.idClient = a.Client_idClient
 where DepartmentCity = 'lviv'
-group by idDepartment, DepartmentCity
+group by idDepartment
 having sum(Sum) > 5000;
 # 22.Знайти клієнтів, які повністю погасили кредити на суму більше ніж 5000
 select idClient, FirstName, LastName, CreditState, Sum
@@ -161,7 +161,7 @@ where City = (
     from client c
              join application a on c.idclient = a.client_idclient
     group by idclient
-    order by count(idapplication) desc
+    order by count(*) desc
     limit 1
 );
 # 27. Місто клієнта з найбільшою кількістю кредитів
@@ -169,5 +169,5 @@ select c.City
 from client c
          join application a on c.idclient = a.client_idclient
 group by idclient
-order by count(idapplication) desc
+order by count(*) desc
 limit 1;

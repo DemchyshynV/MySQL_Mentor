@@ -55,12 +55,12 @@ select (select count(*)
 select max(Sum) as max_credit, client.*
 from client
          join application a on client.idClient = a.Client_idClient
-group by idClient, FirstName, LastName;
+group by idClient;
 # 11. Посчитать количество заявок на кредит для каждого клиента.
 select count(*), idClient, FirstName, LastName
 from client
          join application a on client.idClient = a.Client_idClient
-group by idClient, FirstName, LastName;
+group by idClient;
 # 12. Найти наибольший и наименьший кредиты.
 select min(Sum) as min, max(Sum) as max
 from application;
@@ -69,7 +69,7 @@ select count(*), idClient, FirstName, LastName, Education
 from client
          join application a on client.idClient = a.Client_idClient
 where Education = 'high'
-group by idClient, FirstName, LastName, Education;
+group by idClient;
 #14. Вывести данные про клиента, у которого наибольшая средняя сумма кредитов.
 select avg(Sum) as avg, client.*
 from client
@@ -82,7 +82,7 @@ select sum(Sum) as sum, idDepartment, DepartmentCity
 from department
          join client c on department.idDepartment = c.Department_idDepartment
          join application a on c.idClient = a.Client_idClient
-group by DepartmentCity, idDepartment
+group by idDepartment
 order by sum desc
 limit 1;
 # 16. Вывести отделение, которое выдало самый большой кредит.
@@ -129,7 +129,7 @@ from department
          join client c on department.idDepartment = c.Department_idDepartment
          join application a on c.idClient = a.Client_idClient
 where DepartmentCity = 'lviv'
-group by idDepartment, DepartmentCity
+group by idDepartment
 having sum(Sum) > 5000;
 # 22. Найти клиентов, которые погасили кредиты на сумму больше чем 5000
 select idClient, FirstName, LastName, CreditState, Sum
@@ -161,7 +161,7 @@ where City = (
     from client c
              join application a on c.idclient = a.client_idclient
     group by idclient
-    order by count(idapplication) desc
+    order by count(*) desc
     limit 1
 );
 # 27. Найти город клиента с самим большим количеством кредитов.
@@ -169,5 +169,5 @@ select c.City
 from client c
          join application a on c.idclient = a.client_idclient
 group by idclient
-order by count(idapplication) desc
+order by count(*) desc
 limit 1;
