@@ -1,6 +1,16 @@
 distinct
 union
 
+desc cars;
+select price, year, price*2 doublePrice, price*year from cars;
+select concat(id, ' ', name,' ', gender) from users;
+select concat('asd', ' hsdhdh') from dual;
+select * from users where concat('Ms ', name,' ', gender) = 'Ms Olha Female';
+select * from users where age = 2+14;
+select * from users where name > 'max';
+select * from users order by 3 desc ;
+select upper(name) from users;
+
 select *
 from client c
          join department d on d.idDepartment = c.Department_idDepartment;
